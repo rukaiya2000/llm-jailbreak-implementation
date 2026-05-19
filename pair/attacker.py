@@ -5,7 +5,10 @@ from .models import LLMClient
 from .prompts import ATTACKER_SYSTEM_PROMPT
 
 
-def _parse_attacker_response(text: str) -> tuple[str, str]:
+def _parse_attacker_response(text: str | None) -> tuple[str, str]:
+    if not text:
+        return "", ""
+
     # Direct JSON parse
     try:
         data = json.loads(text.strip())

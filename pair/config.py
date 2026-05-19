@@ -6,10 +6,12 @@ class PAIRConfig:
     goal: str
     n_streams: int = 30
     k_iterations: int = 3
-    attacker_model: str = "claude-haiku-4-5-20251001"
-    target_model: str = "claude-sonnet-4-6"
-    judge_model: str = "claude-sonnet-4-6"
-    provider: str = "anthropic"
+    attacker_model: str = "gpt-oss-120b"
+    target_model: str = "gpt-oss-120b"
+    judge_model: str = "gpt-oss-120b"
+    attacker_provider: str = "navigator"
+    target_provider: str = "navigator"
+    judge_provider: str = "navigator"
     success_threshold: int = 10
     verbose: bool = False
     label: str = ""
