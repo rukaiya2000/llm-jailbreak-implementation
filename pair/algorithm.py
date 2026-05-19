@@ -65,23 +65,11 @@ async def _run_stream(
         {"role": "user", "content": INITIAL_ATTACKER_MSG.format(goal=config.goal)}
     ]
 
-    history_window = 6  # keep last 3 attempt+feedback pairs (2 msgs each)
-    best_score_so_far = 0
-    best_pair_start: int | None = None  # index of assistant msg for the best-scoring attempt
-
     for k in range(config.k_iterations):
-        recent_start = max(1, len(attacker_msgs) - history_window)
-        pinned = (
-            attacker_msgs[best_pair_start:best_pair_start + 2]
-            if best_pair_start is not None and best_pair_start < recent_start
-            else []
-        )
-        windowed = attacker_msgs[:1] + pinned + attacker_msgs[recent_start:]
-        improvement, prompt = await attacker.generate(windowed)
+        improvement, prompt = await attacker.generate(attacker_msgs)
         if not prompt or not prompt.strip():
             break
 
-        asst_idx = len(attacker_msgs)
         attacker_msgs.append(
             {"role": "assistant", "content": json.dumps({"improvement": improvement, "prompt": prompt})}
         )
@@ -96,10 +84,6 @@ async def _run_stream(
 
         if score >= config.success_threshold:
             break
-
-        if score > best_score_so_far:
-            best_score_so_far = score
-            best_pair_start = asst_idx
 
         attacker_msgs.append({
             "role": "user",

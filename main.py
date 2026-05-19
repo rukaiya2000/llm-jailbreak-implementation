@@ -102,9 +102,9 @@ def main() -> None:
                         help="Number of parallel conversation streams")
     parser.add_argument("--k-iterations", type=int, default=2, dest="k_iterations",
                         help="Max refinement iterations per stream")
-    parser.add_argument("--attacker-provider", default="navigator", choices=["anthropic", "openai", "navigator"], dest="attacker_provider")
-    parser.add_argument("--target-provider", default="navigator", choices=["anthropic", "openai", "navigator"], dest="target_provider")
-    parser.add_argument("--judge-provider", default="navigator", choices=["anthropic", "openai", "navigator"], dest="judge_provider")
+    parser.add_argument("--attacker-provider", default="navigator", choices=["openai", "navigator"], dest="attacker_provider")
+    parser.add_argument("--target-provider", default="navigator", choices=["openai", "navigator"], dest="target_provider")
+    parser.add_argument("--judge-provider", default="navigator", choices=["openai", "navigator"], dest="judge_provider")
     parser.add_argument("--attacker-model", default="gpt-oss-120b", dest="attacker_model")
     parser.add_argument("--target-model", default="gpt-oss-120b", dest="target_model")
     parser.add_argument("--judge-model", default="gpt-oss-120b", dest="judge_model")
@@ -117,9 +117,6 @@ def main() -> None:
     args = parser.parse_args()
 
     providers = (args.attacker_provider, args.target_provider, args.judge_provider)
-    if "anthropic" in providers and not os.getenv("ANTHROPIC_API_KEY"):
-        print("Error: ANTHROPIC_API_KEY not set. Add it to a .env file or export it.")
-        sys.exit(1)
     if "openai" in providers and not os.getenv("OPENAI_API_KEY"):
         print("Error: OPENAI_API_KEY not set. Add it to a .env file or export it.")
         sys.exit(1)
