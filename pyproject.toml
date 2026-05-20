@@ -5,6 +5,7 @@ description = "PAIR jailbreak algorithm implementation for academic security res
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "anthropic>=0.40.0",
     "openai>=1.0.0",
     "python-dotenv>=1.0.0",
 ]

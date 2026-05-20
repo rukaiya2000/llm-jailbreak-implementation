@@ -1,6 +1,7 @@
 import os
 from abc import ABC, abstractmethod
 
+import anthropic
 import openai
 
 
@@ -52,9 +53,28 @@ class NavigatorClient(LLMClient):
         return response.choices[0].message.content
 
 
+class AnthropicClient(LLMClient):
+    def __init__(self, model: str) -> None:
+        self.model = model
+        self._client = anthropic.AsyncAnthropic()
+
+    async def chat(self, messages: list[dict], system: str = "") -> str:
+        kwargs: dict = {
+            "model": self.model,
+            "max_tokens": 1024,
+            "messages": messages,
+        }
+        if system:
+            kwargs["system"] = system
+        response = await self._client.messages.create(**kwargs)
+        return response.content[0].text
+
+
 def make_client(provider: str, model: str) -> LLMClient:
     if provider == "openai":
         return OpenAIClient(model)
     if provider == "navigator":
         return NavigatorClient(model)
+    if provider == "anthropic":
+        return AnthropicClient(model)
     raise ValueError(f"Unsupported provider: {provider!r}")
