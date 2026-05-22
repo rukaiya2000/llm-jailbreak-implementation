@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="200" height="175">
+  <defs>
+    <radialGradient id="starGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#5c0011"/>
+      <stop offset="100%" style="stop-color:#9b0000"/>
+    </radialGradient>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1a1a1a"/>
+      <stop offset="100%" style="stop-color:#080808"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="120" cy="105" r="105" fill="url(#bgGrad)"/>
+  <circle cx="120" cy="105" r="104" fill="none" stroke="#3a0000" stroke-width="1.5"/>
+  <circle cx="120" cy="105" r="98"  fill="none" stroke="#e63946" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- 7-pointed sheriff star (R=80, r=45) -->
+  <path d="
+    M 120,25
+    L 139.5,64.5
+    L 182.5,55.1
+    L 163.9,95.0
+    L 198,122.8
+    L 155.2,133.1
+    L 154.7,177.1
+    L 120,150
+    L 85.3,177.1
+    L 84.8,133.1
+    L 42,122.8
+    L 76.1,95.0
+    L 57.5,55.1
+    L 100.5,64.5
+    Z"
+    fill="url(#starGrad)"
+    stroke="#e63946"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+    filter="url(#glow)"/>
+
+  <!-- Inner badge circle -->
+  <circle cx="120" cy="105" r="38" fill="#0a0a0a" stroke="#e63946" stroke-width="1"/>
+  <circle cx="120" cy="105" r="34" fill="none" stroke="#3a0000" stroke-width="0.5"/>
+
+  <!-- BAD COP text -->
+  <text x="120" y="100" text-anchor="middle"
+        fill="#ffffff" font-family="'Courier New', monospace"
+        font-size="15" font-weight="bold" letter-spacing="3">BAD</text>
+  <line x1="92" y1="107" x2="148" y2="107" stroke="#e63946" stroke-width="0.8"/>
+  <text x="120" y="121" text-anchor="middle"
+        fill="#e63946" font-family="'Courier New', monospace"
+        font-size="15" font-weight="bold" letter-spacing="3">COP</text>
+
+  <!-- Circular text: top arc -->
+  <path id="topArc" d="M 26,105 A 94,94 0 0,1 214,105" fill="none"/>
+  <text font-family="monospace" font-size="6.5" fill="#555" letter-spacing="1.5">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">ADVERSARIAL PROMPT REFINEMENT</textPath>
+  </text>
+
+  <!-- Circular text: bottom arc -->
+  <path id="botArc" d="M 26,105 A 94,94 0 0,0 214,105" fill="none"/>
+  <text font-family="monospace" font-size="6.5" fill="#555" letter-spacing="1.5">
+    <textPath href="#botArc" startOffset="50%" text-anchor="middle">LLM  RED-TEAMING  TOOL</textPath>
+  </text>
+
+  <!-- Small decorative dots at star tips -->
+  <circle cx="120" cy="25"    r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="182.5" cy="55.1" r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="198" cy="122.8"  r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="154.7" cy="177.1" r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="85.3" cy="177.1"  r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="42" cy="122.8"   r="2.5" fill="#e63946" opacity="0.8"/>
+  <circle cx="57.5" cy="55.1"  r="2.5" fill="#e63946" opacity="0.8"/>
+</svg>

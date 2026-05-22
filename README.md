@@ -1,4 +1,8 @@
-# pair-jailbreak
+# Bad Cop
+
+<p align="center">
+  <img src="logo.svg" alt="Bad Cop Logo" width="360"/>
+</p>
 
 > Implementation of the **PAIR** (Prompt Automatic Iterative Refinement) algorithm for automated LLM red-teaming and adversarial prompt research.
 
