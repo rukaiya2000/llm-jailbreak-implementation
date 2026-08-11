@@ -53,6 +53,31 @@ class NavigatorClient(LLMClient):
         return response.choices[0].message.content
 
 
+class FireworksClient(LLMClient):
+    """Fireworks AI — OpenAI-compatible endpoint for open-source models."""
+
+    _BASE_URL = "https://api.fireworks.ai/inference/v1"
+
+    def __init__(self, model: str) -> None:
+        self.model = model
+        self._client = openai.AsyncOpenAI(
+            api_key=os.environ.get("FIREWORKS_API_KEY", ""),
+            base_url=self._BASE_URL,
+        )
+
+    async def chat(self, messages: list[dict], system: str = "") -> str:
+        msgs = []
+        if system:
+            msgs.append({"role": "system", "content": system})
+        msgs.extend(messages)
+        response = await self._client.chat.completions.create(
+            model=self.model,
+            messages=msgs,
+            max_tokens=1024,
+        )
+        return response.choices[0].message.content
+
+
 class AnthropicClient(LLMClient):
     def __init__(self, model: str) -> None:
         self.model = model
@@ -77,4 +102,6 @@ def make_client(provider: str, model: str) -> LLMClient:
         return NavigatorClient(model)
     if provider == "anthropic":
         return AnthropicClient(model)
+    if provider == "fireworks":
+        return FireworksClient(model)
     raise ValueError(f"Unsupported provider: {provider!r}")

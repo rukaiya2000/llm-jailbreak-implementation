@@ -102,9 +102,9 @@ def main() -> None:
                         help="Number of parallel conversation streams")
     parser.add_argument("--k-iterations", type=int, default=2, dest="k_iterations",
                         help="Max refinement iterations per stream")
-    parser.add_argument("--attacker-provider", default="navigator", choices=["openai", "navigator", "anthropic"], dest="attacker_provider")
-    parser.add_argument("--target-provider", default="navigator", choices=["openai", "navigator", "anthropic"], dest="target_provider")
-    parser.add_argument("--judge-provider", default="navigator", choices=["openai", "navigator", "anthropic"], dest="judge_provider")
+    parser.add_argument("--attacker-provider", default="navigator", choices=["openai", "navigator", "anthropic", "fireworks"], dest="attacker_provider")
+    parser.add_argument("--target-provider", default="navigator", choices=["openai", "navigator", "anthropic", "fireworks"], dest="target_provider")
+    parser.add_argument("--judge-provider", default="navigator", choices=["openai", "navigator", "anthropic", "fireworks"], dest="judge_provider")
     parser.add_argument("--attacker-model", default="gpt-oss-120b", dest="attacker_model")
     parser.add_argument("--target-model", default="gpt-oss-120b", dest="target_model")
     parser.add_argument("--judge-model", default="gpt-oss-120b", dest="judge_model")
@@ -125,6 +125,9 @@ def main() -> None:
         sys.exit(1)
     if "anthropic" in providers and not os.getenv("ANTHROPIC_API_KEY"):
         print("Error: ANTHROPIC_API_KEY not set. Add it to a .env file or export it.")
+        sys.exit(1)
+    if "fireworks" in providers and not os.getenv("FIREWORKS_API_KEY"):
+        print("Error: FIREWORKS_API_KEY not set. Add it to a .env file or export it.")
         sys.exit(1)
 
     asyncio.run(_run(args))

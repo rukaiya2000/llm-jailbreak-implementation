@@ -12,5 +12,4 @@ wheels/
 # API keys
 .env
 
-# Benchmark logs and graphs
-logs/
+
